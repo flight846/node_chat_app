@@ -13,14 +13,18 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
-io.on('connection', function (socket) {
-  console.log('a user connected')
-  socket.on('disconnect', function () { // when a browser is closed, a user is disconnected
-    console.log('user disconnected')
-  })
-})
+// io.on('connection', function (socket) {
+//   console.log('a user connected')
+//   socket.on('disconnect', function () { // when a browser is closed, a user is disconnected
+//     console.log('user disconnected')
+//   })
+// })
 
 io.on('connection', function (socket) {
+  console.log('connected')
+  socket.on('chat name', function (name) {
+    io.emit('chat name', name)
+  })
   socket.on('chat message', function (msg) {
     io.emit('chat message', msg)
   })
